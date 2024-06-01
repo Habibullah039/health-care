@@ -24,7 +24,7 @@ const SideBarItem = ({ item }: IItemProps) => {
           ...(pathname === linkPath
             ? {
                 borderRight: "3px solid #1586FD",
-                "@ svg": {
+                "& svg": {
                   color: "#1586FD",
                 },
               }
