@@ -1,10 +1,10 @@
-import PHFileUploader from "@/components/forms/PHFileUploader";
 import PHForm from "@/components/forms/PHForm";
 import PHInput from "@/components/forms/PHInput";
+import PHSelectFields from "@/components/forms/PHSelectFields";
 import PHFullScreenModal from "@/components/shared/PHModal/PHFullScreenModal";
-import PHModal from "@/components/shared/PHModal/PHModal";
+import { useCreateDoctorMutation } from "@/redux/api/doctorApi";
+import { Gender } from "@/types";
 import { modifyPayload } from "@/utils/modifyPayload";
-import { Password } from "@mui/icons-material";
 import { Button, Grid } from "@mui/material";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
@@ -15,8 +15,19 @@ type TProps = {
 };
 
 const DoctorModal = ({ open, setOpen }: TProps) => {
+  const [createDoctor] = useCreateDoctorMutation();
   const handleModalSubmit = async (values: FieldValues) => {
+    values.doctor.experience = Number(values.doctor.experience);
+    values.doctor.apointmentFee = Number(values.doctor.apointmentFee);
+
+    const data = modifyPayload(values);
     try {
+      const res = await createDoctor(data).unwrap();
+      console.log(res);
+      if (res?.id) {
+        toast.success("Doctor Created Successfully!!!");
+        setOpen(false);
+      }
     } catch (err: any) {
       console.error(err.message);
     }
@@ -127,6 +138,17 @@ const DoctorModal = ({ open, setOpen }: TProps) => {
               label="Experience"
               type="number"
               fullWidth={true}
+              sx={{
+                mb: 2,
+              }}
+            />
+          </Grid>
+
+          <Grid item xs={12} sm={12} md={4}>
+            <PHSelectFields
+              items={Gender}
+              name="doctor.gender"
+              label="Gender"
               sx={{
                 mb: 2,
               }}

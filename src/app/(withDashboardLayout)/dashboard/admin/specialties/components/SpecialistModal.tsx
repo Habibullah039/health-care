@@ -36,6 +36,7 @@ const SpecialistModal = ({ open, setOpen }: TProps) => {
           <Grid item md={6}>
             <PHInput name="title" label="Title" />
           </Grid>
+
           <Grid item md={6}>
             <PHFileUploader name="file" label="Upload File" />
           </Grid>

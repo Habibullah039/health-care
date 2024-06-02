@@ -31,10 +31,11 @@ const PHSelectFields = ({
         <TextField
           {...field}
           id="outlined-name"
+          select
           label={label}
-          InputLabelProps={{
-            shrink: true,
-          }}
+          // InputLabelProps={{
+          //   shrink: true,
+          // }}
           size={size}
           fullWidth={fullWidth}
           sx={{ ...sx }}
